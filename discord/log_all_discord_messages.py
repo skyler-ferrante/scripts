@@ -21,9 +21,7 @@ print("Joining with token:",TOKEN, file=sys.stderr)
 
 class ReplyClient(discord.Client):
         async def on_message(self, message):
-            print(message.content)
-            print(message.author)
-            print(datetime.datetime.now())
+            print(message.content,message.author, datetime.datetime.now())
 
 client = ReplyClient()
 client.run(TOKEN)
