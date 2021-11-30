@@ -15,9 +15,22 @@ function set_random_password(){
 # If given a user: change password of user forever
 # This could be used to increase the traffic of credential dumpers, 
 # and potentially frustrate red team.
-if [ $1 ];
+if [[ $1 ]];
 then
 	USER=$1
+	
+	# Check if user does not exist
+	if ! id 1>/dev/null $USER;
+	then
+		read -p "Would you like to make a new user $USER? "
+		if [[ $confirm == [yY] ]]; then
+			exit 1;
+		fi
+		
+		# Set everything to y
+		yes | adduser $1 1>/dev/null
+	fi
+	
 	while :
 	do
 		set_random_password
